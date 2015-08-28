@@ -1,0 +1,26 @@
+ul, ol {
+  list-style: none; }
+
+.color-info {
+  color: #5bc0de; }
+
+.color-success {
+  color: #5cb85c; }
+
+.color-warning {
+  color: #f0ad4e; }
+
+.color-danger {
+  color: #d9534f; }
+
+.gridster {
+  margin: 0 auto; }
+
+.gridster .gs-w {
+  background: #FFF;
+  cursor: pointer;
+  -webkit-box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.3); }
+
+.progress {
+  height: 10px; }

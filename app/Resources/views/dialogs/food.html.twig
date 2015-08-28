@@ -1,0 +1,19 @@
+<div class="modal fade" id="foodModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row food-types">
+                    {% for foodType in foodTypes %}
+                        <button type="button" class="btn btn-lg btn-success" data-value="{{ foodType.subType }}">
+                            <i class="{{ iconForFood(foodType.subType) }}"></i> {{ foodType.subType }}
+                        </button>
+                    {% endfor %}
+
+                    <button type="button" class="btn btn-lg btn-success" data-value="Other">
+                        <i class="fa fa-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

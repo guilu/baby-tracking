@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <title>{% block title %}Baby Tracker!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}?v=2" />
+        <link rel="apple-touch-icon" href="{{ asset('apple-touch-icon.png') }}">
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('apple-touch-icon-57x57.png') }}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('apple-touch-icon-72x72.png') }}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('apple-touch-icon-114x114.png') }}" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('apple-touch-icon-144x144.png') }}" />
+        <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('apple-touch-icon-60x60.png') }}" />
+        <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('apple-touch-icon-120x120.png') }}" />
+        <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('apple-touch-icon-76x76.png') }}" />
+        <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('apple-touch-icon-152x152.png') }}" />
+
+        <!-- en prod: minificado -->
+        <link rel="stylesheet" href="{{ asset('css/app.min.css') }}">
+    </head>
+    <body>
+        {% block body %}{% endblock %}
+        <script src="{{ asset('js/plugins.min.js') }}"></script>
+        <script src="{{ asset('js/app.min.js') }}"></script>
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

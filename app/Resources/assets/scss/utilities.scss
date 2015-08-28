@@ -1,0 +1,30 @@
+@mixin button-size-styles($factor) {
+
+  @if($factor > 5) {
+    font-size: ($factor * 4px);
+    width: ($factor * 22px);
+    height: ($factor * 22px);
+    margin: ($factor * 0.5px);
+
+    &.long-text {
+      line-height: 30px;
+    }
+
+    i {
+      font-size: ($factor * 11px) !important;
+    }
+  }
+
+  @if($factor <= 5) {
+    font-size: ($factor * 3px);
+    width: ($factor * 20px);
+    height: ($factor * 20px);
+    margin: ($factor * 0.5px);
+    padding: 0;
+
+    i {
+      font-size: ($factor * 11px) !important;
+    }
+  }
+
+}

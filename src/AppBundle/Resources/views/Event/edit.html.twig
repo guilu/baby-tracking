@@ -1,0 +1,19 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="container-fluid">
+
+        <h1>Event edit</h1>
+
+        {{ form(edit_form) }}
+
+        <ul class="list-unstyled list-inline">
+            <li>
+                <a href="{{ path('event') }}">
+                    volver al listado
+                </a>
+            </li>
+            <li>{{ form(delete_form) }}</li>
+        </ul>
+    </div>
+{% endblock %}

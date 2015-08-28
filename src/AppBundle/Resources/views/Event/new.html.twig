@@ -1,0 +1,17 @@
+{% extends '::base.html.twig' %}
+
+{% block body -%}
+    <div class="container-fluid">
+        <h1>Event creation</h1>
+
+        {{ form(form) }}
+
+            <ul class="record_actions">
+                <li>
+                    <a href="{{ path('event') }}">
+                        Back to the list
+                    </a>
+                </li>
+            </ul>
+</div>
+{% endblock %}

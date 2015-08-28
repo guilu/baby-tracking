@@ -1,0 +1,77 @@
+@import "utilities";
+
+$button-size: 10;
+$button-size-small: 5;
+$button-size-tiny: 3;
+$mobile: "only screen and (max-width: 480px)";
+
+#dashboard {
+  text-align: center;
+
+  h1 {
+    @media #{$mobile} {
+      font-size: 24px;
+      padding-top: 20px;
+    }
+    span {
+      color: #FF3D7F;
+    }
+  }
+
+  .primary-events {
+    button {
+      @include button-size-styles($button-size);
+
+      @media #{$mobile} {
+        @include button-size-styles($button-size-small);
+      }
+    }
+  }
+
+  .secondary-events {
+    button {
+      @include button-size-styles($button-size-small);
+
+      @media #{$mobile} {
+        @include button-size-styles($button-size-tiny);
+      }
+    }
+  }
+
+  button {
+    position: relative;
+    text-shadow: none;
+
+    .badge {
+      position: absolute;
+      left: 5px;
+      top: 195px;
+
+      @media #{$mobile} {
+      left: 0;
+      top: 83px;
+      font-size: 9px;
+      padding: 3px;
+    }
+    }
+
+    i {
+      display: block;
+    }
+  }
+}
+
+#milkModal {
+
+  .feed-types {
+    margin-bottom: 20px;
+  }
+
+  .feed-types, .bottle-options {
+    button {
+      span {
+        display: block;
+      }
+    }
+  }
+}

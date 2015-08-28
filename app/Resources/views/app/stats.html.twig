@@ -1,0 +1,112 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block stylesheets %}{% endblock %}
+
+{% block body %}
+
+<div class="gridster">
+    <ul>
+        <li data-row="1" data-col="1" data-sizex="2" data-sizey="1" class="box-profile">
+            <h1>Baby Tracker</h1>
+            <div class="pull-left info">
+                <div class="sleep-items hide">
+                    <div class="sleep">Z</div>
+                    <div class="sleep">Z</div>
+                    <div class="sleep">z</div>
+                    <div class="sleep">Z</div>
+                </div>
+
+                <img src="{{ asset('apple-touch-icon.png') }}" height="42" alt="Baby Tracker" class="img-circle">
+                <h1 class="profile-age"></h1>
+            </div>
+
+            <div class="pull-left status-bars">
+                Higiene
+                <div class="progress progress-striped">
+                    <div class="progress-bar profile-hygiene" role="progressbar" style="width: 0%;"></div>
+                </div>
+
+                Hambre
+                <div class="progress progress-striped">
+                    <div class="progress-bar profile-hunger" role="progressbar" style="width: 0%;"></div>
+                </div>
+
+                Vejiga
+                <div class="progress progress-striped">
+                    <div class="progress-bar profile-bladder" role="progressbar" style="width: 0%;"></div>
+                </div>
+
+                Energía
+                <div class="progress progress-striped">
+                    <div class="progress-bar profile-energy" role="progressbar" style="width: 0%;"></div>
+                </div>
+            </div>
+        </li>
+
+        <li data-row="2" data-col="1" data-sizex="2" data-sizey="1" class="box-diaper-chart">
+            <ol class="legend">
+                <li><i class="fa fa-square" style="color: rgb(255,255,255);"></i> Total</li>
+                <li><i class="fa fa-square" style="color: rgb(200,200,200);"></i> húmedos</li>
+                <li><i class="fa fa-square" style="color: rgb(110,110,110);"></i> sucios</li>
+                <li><i class="fa fa-square" style="color: rgb(50,50,50);"></i> Húmedos &amp; sucios</li>
+            </ol>
+
+            <canvas id="diaperchart" width="520" height="210"></canvas>
+        </li>
+
+        <li data-row="1" data-col="3" data-sizex="1" data-sizey="2" class="box-diaper-stats">
+            <h1>Pañales stock:</h1>
+            <h2 class="diapers-available">&mdash;</h2>
+
+            <h1>Se acaban en</h1>
+            <h2 class="diapers-run-out-days">&mdash;<span> días</span></h2>
+            <h3 class="diapers-run-out-date">&mdash;</h3>
+
+            <h1>Media</h1>
+            <h2 class="diapers-average">&mdash;</h2>
+            <h3>pañales por día</h3>
+        </li>
+
+        <li data-row="1" data-col="4" data-sizex="1" data-sizey="1" class="box-feed-time">
+            <h1>Próxima comida:</h1>
+            <h2 class="feed-time-next"></h2>
+        </li>
+
+        <li data-row="2" data-col="4" data-sizex="1" data-sizey="1" class="box-last-fed">
+            <i class="last-fed-icon icon-tint"></i>
+            <h1>Última comida:</h1>
+            <h1 class="last-fed-time"></h1>
+            <h2 class="last-fed-amount"></h2>
+            <h1 class="last-fed-type"></h1>
+        </li>
+
+        <li data-row="3" data-col="1" data-sizex="4" data-sizey="1" class="box-day-chart">
+            <h1>Hoy</h1>
+
+            <ol class="legend clearfix">
+                <li><i class="fa fa-square color-info"></i> Comida o Baño</li>
+                <li><i class="fa fa-square color-success"></i> Pañal</li>
+                <li><i class="fa fa-square color-warning"></i> Dormir o Actividad</li>
+                <li><i class="fa fa-square color-danger"></i> Medicina</li>
+            </ol>
+
+            <ol class="legend time clearfix">
+                <li>Medianoche</li>
+                <li>08:00</li>
+                <li>Mediodía</li>
+                <li>20:00</li>
+            </ol>
+
+            <div class="progress"></div>
+            <p class="chart-description">click en el segmento para obtener información detallada</p>
+        </li>
+    </ul>
+</div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('js/app.stats.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- build file for jenkins phing job. Includes:
+
+    clean:
+        delete build
+    prepare:
+        composer install
+    check:
+        Code Style
+        Mess Detector (el fichero con las reglas debe estar en ci/phpmd.xml)
+        Copy Paste Detector
+        pdepend (quality metrics)
+    test:
+        phpunit
+    doc:
+        phpdoc Documentation (phpDocumentor 2)
+
+    phpmetrics
+-->
+
+<project name="Baby Tracker" basedir="." default="build:main">
+    <!-- Properties -->
+    <property name="application.name" value="Baby Tracker" />
+    <property name="dir.app" value="${project.basedir}/app" />
+    <property name="dir.src" value="${project.basedir}/src" />
+    <property name="dir.build" value="${project.basedir}/build" />
+    <property name="dir.docs" value="${dir.build}/docs" />
+    <property name="dir.docs.docblox" value="${dir.docs}/docblox" />
+    <property name="dir.docs.code-browser" value="${dir.docs}/code-browser" />
+    <property name="dir.docs.coverage" value="${dir.docs}/coverage" />
+    <property name="dir.docs.phpmetrics" value="${dir.docs}/phpmetrics" />
+    <property name="dir.reports" value="${dir.build}/logs" />
+    <property name="dir.docs.pdepend" value="${dir.docs}/pdepend" />
+    <property name="dir.ci" value="${project.basedir}/ci" />
+    <property name="phpcd.coding.standard" value="Symfony2" />
+
+    <!-- Filesets -->
+    <fileset id="sourcecode" dir="${dir.src}">
+        <include name="**/*.php" />
+        <exclude name="Test/**" />
+        <exclude name="vendor/" />
+    </fileset>
+
+    <!-- Default target -->
+    <target name="build:main"
+            depends="build:clean, build:prepare, build:composer, build:check, build:test, build:doc"
+            description="Run all test and build everything" />
+
+    <!-- main ci -->
+    <target name="build:main-ci"
+            depends="build:clean, build:prepare, build:check, build:test, build:doc"
+            description="Run all test and build everything without composer" />
+
+    <!-- Doc target -->
+    <target name="build:doc"
+            depends="build:prepare, doc:phpdoc, doc:phpcb, doc:loc"
+            description="Generates app API documentation." />
+
+    <!-- Check target -->
+    <target name="build:check"
+            depends="build:clean, build:prepare, check:cs, check:md, check:cpd, check:depend, check:metrics"
+            description="Analyzes app code." />
+
+    <!-- Test target -->
+    <target name="build:test"
+            depends="test:unit"
+            description="Executes all tests.." />
+
+    <!-- Project build clean -->
+    <target name="build:clean" description="Clean up build directories.">
+        <echo msg="Cleaning build directories ..." />
+        <delete dir="${dir.build}" verbose="true" />
+    </target>
+
+    <!-- Project build prepare -->
+    <target name="build:prepare" description="Create build directories.">
+        <echo msg="Creating build directories ..." />
+        <mkdir dir="${dir.build}" />
+        <mkdir dir="${dir.docs}" />
+        <mkdir dir="${dir.docs.docblox}" />
+        <mkdir dir="${dir.docs.phpmetrics}" />
+        <mkdir dir="${dir.docs.coverage}" />
+        <mkdir dir="${dir.docs.code-browser}"/>
+        <mkdir dir="${dir.docs.pdepend}" />
+        <mkdir dir="${dir.reports}" />
+    </target>
+
+    <!-- Composer install -->
+    <target name="build:composer" description="Install dependencies with Composer" depends="build:prepare">
+        <echo msg="Instalando vendors....."/>
+        <exec executable="composer" passthru="true">
+            <arg value="install"/>
+        </exec>
+    </target>
+
+    <!-- Symfony2 code sniffer -->
+    <target name="check:cs" description="Checks coding standard. (${phpcd.coding.standard})">
+        <echo msg="Checking coding standard ..." />
+        <phpcodesniffer standard="${phpcd.coding.standard}"
+                        showSniffs="true"
+                        showWarnings="true"
+                        verbosity="0">
+            <fileset dir="${dir.src}">
+                <include name="*.php"/>
+            </fileset>
+            <formatter type="checkstyle" outfile="${dir.reports}/checkstyle.xml" />
+        </phpcodesniffer>
+        <echo msg="outfile: ${dir.reports}/checkstyle.xml" />
+    </target>
+
+    <!-- Mess detector -->
+    <target name="check:md" description="Generate code metrics.">
+        <echo msg="Generating code metrics ..." />
+        <phpmd rulesets="${dir.ci}/phpmd.xml">
+            <fileset id="sourcecode" dir="${dir.src}">
+                <include name="**/*.php" />
+                <exclude name="DependencyInjection/**" />
+                <exclude name="Test/**" />
+                <exclude name="vendor/" />
+            </fileset>
+            <formatter type="xml" outfile="${dir.reports}/pmd.xml" />
+        </phpmd>
+        <echo msg="Outfile: ${dir.reports}/pmd.xml"/>
+    </target>
+
+    <!-- copy/paste detector -->
+    <target name="check:cpd" description="Checks similar code blocks.">
+        <echo msg="Checking similar code blocks ..." />
+        <phpcpd>
+            <fileset id="sourcecode" dir="${dir.src}">
+                <include name="**/*.php" />
+                <exclude name="Test/**" />
+                <exclude name="DependencyInjection/**" />
+                <exclude name="vendor/" />
+            </fileset>
+            <formatter type="pmd" outfile="${dir.reports}/pmd-cpd.xml" />
+        </phpcpd>
+        <echo msg="Outfile: ${dir.reports}/pmd-cpd.xml"/>
+    </target>
+
+    <!-- Code dependency -->
+    <target name="check:depend" description="Checks coupling and dependency.">
+        <echo msg="Checking coupling and dependency ..." />
+        <phpdepend>
+            <fileset id="sourcecode" dir="${dir.src}">
+                <include name="**/*.php" />
+                <exclude name="Test/**" />
+                <exclude name="vendor/" />
+            </fileset>
+            <logger type="jdepend-xml" outfile="${dir.reports}/jdepend.xml" />
+            <logger type="jdepend-chart" outfile="${dir.docs.pdepend}/dependencies.svg" />
+            <logger type="overview-pyramid" outfile="${dir.docs.pdepend}/overview-pyramid.svg" />
+        </phpdepend>
+        <echo msg="xml file: ${dir.reports}/jdepend.xml"/>
+        <echo msg="jdepend-chart file: ${dir.docs.pdepend}/dependencies.svg"/>
+        <echo msg="overview-pyramid file: ${dir.docs.pdepend}/overview-pyramid.svg"/>
+    </target>
+
+    <!-- phpmetrics -->
+    <target name="check:metrics" description="Ejecucion de phpmetrics">
+        <echo msg="Runing phpmetrics ..."/>
+        <exec command="phpmetrics --report-html=${dir.docs.phpmetrics}/index.html --report-xml=${dir.reports}/phpmetrics.xml --violations-xml=${dir.reports}/violations.xml src" passthru="true"/>
+        <echo msg="phpmetrics web to ${dir.docs.phpmetrics}/index.html" />
+        <echo msg="phpmetrics xml to ${dir.reports}/phpmetrics.xml" />
+        <echo msg="violations xml to ${dir.reports}/violations.xml" />
+    </target>
+
+    <!-- DocBlox API documentation target -->
+    <target name="doc:phpdoc" description="Generate API Documentation.">
+        <echo msg="Generating API Documentation with phpDocumentor 2 ... on ${dir.docs.docblox}" />
+        <phpdoc2 title="${application.name}"
+                 destdir="${dir.docs.docblox}"
+                 template="responsive-twig">
+            <fileset id="sourcecode" dir="${dir.src}">
+                <include name="**/*.php" />
+                <exclude name="Test/**" />
+                <exclude name="vendor/" />
+            </fileset>
+        </phpdoc2>
+        <echo msg="Documentacion en ${dir.docs.docblox}\index.html"/>
+    </target>
+
+    <!-- Code Browser -->
+    <target name="doc:phpcb" description="Aggregate tool output with PHP_CodeBrowser">
+        <echo msg="Generating Code Browser..." />
+        <exec logoutput="true" command="phpcb --log ${dir.reports} --source ${dir.src} --output ${dir.docs.code-browser}" />
+        <echo msg="Output en ${dir.docs.code-browser}/index.html"/>
+    </target>
+
+    <!-- Lines of Code -->
+    <target name="doc:loc" description="Measuring the size of the project.">
+        <echo msg="Checking de size of the project..." />
+        <phploc reportType="csv"
+                reportDirectory="${dir.reports}"
+                reportName="phploc">
+            <fileset id="sourcecode" dir="${dir.src}">
+                <include name="**/*.php" />
+                <exclude name="DependencyInjection/**" />
+                <exclude name="Test/**" />
+                <exclude name="vendor/" />
+            </fileset>
+        </phploc>
+    </target>
+
+    <!-- Unit tests -->
+    <target name="test:unit" description="Executes unit tests.">
+        <exec command="phpunit --log-junit ${dir.reports}/phpunit.xml --coverage-clover ${dir.reports}/clover.xml --coverage-crap4j ${dir.reports}/crap4j.xml --coverage-html ${dir.docs.coverage}/ -c ${dir.app}" passthru="true"/>
+        <echo msg="phunit report to ${dir.reports}/phpunit.xml" />
+        <echo msg="clover report to ${dir.reports}/clover.xml" />
+        <echo msg="coverage report to ${dir.docs.coverage}" />
+    </target>
+
+</project>

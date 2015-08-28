@@ -1,0 +1,19 @@
+<div class="modal fade" id="medicineModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="row medicine-types">
+                    {% for medicineType in medicineTypes %}
+                        <button type="button" class="btn btn-lg btn-success" data-value="{{ medicineType.subType }}">
+                            <i class="{{ iconForMedicine(medicineType.subType) }}"></i> {{ medicineType.subType }}
+                        </button>
+                    {% endfor %}
+
+                    <button type="button" class="btn btn-lg btn-success" data-value="Other">
+                        <i class="fa fa-plus"></i> Add
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

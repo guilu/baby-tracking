@@ -1,0 +1,63 @@
+#src/AppBundle/DataFixtures/ORM/event_types.yml
+AppBundle\Entity\EventType:
+    eventtype1:
+        name: Milk
+        icon: icon-baby-bottle
+        isPrimary: true
+        colorName: primary
+    eventtype2:
+        name: Pump
+        icon: fa fa-tint
+        isPrimary: true
+        colorName: warning
+    eventtype3:
+        name: Diaper
+        icon: icon-baby-diaper
+        isPrimary: true
+        colorName: success
+    eventtype4:
+        name: Sleep
+        icon: icon-baby-crib
+        isPrimary: false
+        colorName: info
+    eventtype5:
+        name: Activity
+        icon: icon-baby-rattle
+        isPrimary: false
+        colorName: info
+    eventtype6:
+        name: Medicine
+        icon: fa fa-medkit
+        isPrimary: false
+        colorName: info
+    eventtype7:
+        name: Doctor
+        icon: fa fa-user-md
+        isPrimary: false
+        colorName: info
+    eventtype8:
+        name: Bath
+        icon: fa fa-tint
+        isPrimary: false
+        colorName: info
+    eventtype9:
+        name: Supplies
+        icon: fa fa-shopping-cart
+        isPrimary: false
+        colorName: info
+    eventtype10:
+        name: Milestone
+        icon: fa fa-trophy
+        isPrimary: false
+        colorName: info
+    eventtype11:
+        name: Note
+        icon: fa fa-pencil
+        isPrimary: false
+        colorName: info
+    eventtype12:
+        name: Food
+        icon: fa fa-lemon-o
+        isPrimary: false
+        colorName: danger
+

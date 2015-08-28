@@ -1,0 +1,13 @@
+{
+  "name": "Baby-Tracking",
+  "version": "0.0.1",
+  "dependencies": {
+    "Chart.js": "~1.0.2",
+    "bootstrap": "3.3.*",
+    "flip": "nnattawat/flip#~1.0.16",
+    "font-awesome": "4.4.*",
+    "gridster": "0.5.6",
+    "jquery": "1.11.*",
+    "jquery-fast-click": "~1.0.0"
+  }
+}

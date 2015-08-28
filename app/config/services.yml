@@ -1,0 +1,17 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+parameters:
+#    parameter_name: value
+
+services:
+
+    helpers:
+        class: AppBundle\Utils\Helpers
+
+    # These are the Twig extensions that create new filters and functions for
+    # using them in the templates
+    app.twig.app_extension:
+        public:    false
+        class:     AppBundle\Twig\AppExtension
+        tags:
+           - { name: twig.extension }
