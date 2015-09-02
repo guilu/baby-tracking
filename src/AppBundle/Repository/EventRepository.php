@@ -70,7 +70,7 @@ class EventRepository extends EntityRepository
             ->orderBy('e.createdAt', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult()
+            ->getOneOrNullResult()
             ;
     }
 
