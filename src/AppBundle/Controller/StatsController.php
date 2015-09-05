@@ -193,14 +193,13 @@ class StatsController extends Controller
         // Return data
         setlocale(LC_TIME, 'es_ES');
 
-
             return array(
                 'available' => $diapersAvailable,
                 'used_per_day' => $diapersPerHour * 24,
                 'run_out' => array(
                     'date' => strftime('%d de %B de %Y', $runOutDate->getTimestamp()),
                     'days' => $runOutDate->diff(new \DateTime())->days,
-                )
+                ),
             );
 
     }
