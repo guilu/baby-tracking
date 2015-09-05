@@ -116,6 +116,12 @@ class StatsController extends Controller
             $data[$day['subType']][$formattedDate] = $day['cuenta'];
         }
 
+        if ($data == null) {
+            $data['wet']=null;
+            $data['dirty']=null;
+            $data['both']=null;
+        }
+
         return array(
             'labels'   => $labels,
             'datasets' => array(
@@ -181,10 +187,12 @@ class StatsController extends Controller
         $diapersPerHour = $averageUsed / 48;
 
         $runOutDate = new \DateTime();
-        $runOutDate->add(new \DateInterval('PT'.floor($diapersAvailable / $diapersPerHour).'H'));
-
+        if ($diapersPerHour != 0) {
+            $runOutDate->add(new \DateInterval('PT'.floor($diapersAvailable / $diapersPerHour).'H'));
+        }
         // Return data
-        if ($diapersPurchased) {
+        setlocale(LC_TIME, 'es_ES');
+
             return array(
                 'available' => $diapersAvailable,
                 'used_per_day' => $diapersPerHour * 24,
@@ -193,9 +201,7 @@ class StatsController extends Controller
                     'days' => $runOutDate->diff(new \DateTime())->days,
                 ),
             );
-        } else {
-            return array();
-        }
+
     }
 
     /**
@@ -260,7 +266,12 @@ class StatsController extends Controller
             }
         }
 
-        $averageDiff = array_sum($timeBetween) / count($timeBetween);
+        if (count($timeBetween) != 0) {
+            $averageDiff = array_sum($timeBetween) / count($timeBetween);
+        } else {
+            $averageDiff = 0;
+        }
+
 
         $nextFeed = $previous->getCreatedAt()->add(new \DateInterval('PT'.ceil($averageDiff).'S'));
 

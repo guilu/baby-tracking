@@ -69,7 +69,8 @@ class EventType
     /**
      * @ORM\OneToMany(
      *      targetEntity="AppBundle\Entity\Event",
-     *      mappedBy="$eventType",
+     *      mappedBy="eventType",
+     *      cascade={"remove"},
      *      orphanRemoval=true
      * )
      * @ORM\OrderBy({"createdAt" = "DESC"})

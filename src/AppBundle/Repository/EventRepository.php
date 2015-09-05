@@ -70,7 +70,7 @@ class EventRepository extends EntityRepository
             ->orderBy('e.createdAt', 'DESC')
             ->setMaxResults(1)
             ->getQuery()
-            ->getSingleResult()
+            ->getOneOrNullResult()
             ;
     }
 
@@ -177,15 +177,19 @@ class EventRepository extends EntityRepository
      */
     public function sumEventValuesOfEventType(EventType $eventType)
     {
-        return $this
-            ->createQueryBuilder('e')
-            ->select('sum(e.value)')
-            ->where('e.eventType = :eventType')
-            ->setParameter('eventType', $eventType)
-            ->groupBy('e.eventType')
-            ->getQuery()
-            ->getSingleScalarResult()
+        try {
+            return $this
+                ->createQueryBuilder('e')
+                ->select('sum(e.value)')
+                ->where('e.eventType = :eventType')
+                ->setParameter('eventType', $eventType)
+                ->groupBy('e.eventType')
+                ->getQuery()
+                ->getSingleScalarResult()
             ;
+        } catch (\Exception $e) {
+            return null;
+        }
     }
 
     /**
