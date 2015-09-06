@@ -116,10 +116,21 @@ class StatsController extends Controller
             $data[$day['subType']][$formattedDate] = $day['cuenta'];
         }
 
+
         if ($data == null) {
-            $data['wet']=null;
-            $data['dirty']=null;
-            $data['both']=null;
+            $data['wet'] = null;
+            $data['dirty'] = null;
+            $data['both'] = null;
+        } else {
+            if (!array_key_exists('wet', $data)) {
+                $data['wet'] = array();
+            }
+            if (!array_key_exists('dirty', $data)) {
+                $data['dirty'] = array();
+            }
+            if (!array_key_exists('both', $data)) {
+                $data['both'] = array();
+            }
         }
 
         return array(
@@ -187,7 +198,8 @@ class StatsController extends Controller
         $diapersPerHour = $averageUsed / 48;
 
         $runOutDate = new \DateTime();
-        if ($diapersPerHour != 0) {
+
+        if (($diapersPerHour != 0) && ($diapersAvailable > 0)) {
             $runOutDate->add(new \DateInterval('PT'.floor($diapersAvailable / $diapersPerHour).'H'));
         }
         // Return data
