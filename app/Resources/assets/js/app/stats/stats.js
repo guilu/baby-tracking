@@ -8,7 +8,7 @@ $(function() {
 
     // Update stats by polling for updates
     updateStats();
-    setInterval('updateStats()', 60000);
+    setInterval('updateStats()', 5000);
 });
 
 function updateStats()

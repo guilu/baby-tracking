@@ -91,6 +91,7 @@ $(function() {
     });
 
     $('#milkModal .feed-types button').fastClick(function () {
+        console.log()
         // Reset all button states
         $('#milkModal .feed-types button')
             .removeClass('btn-primary')
