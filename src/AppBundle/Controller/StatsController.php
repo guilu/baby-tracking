@@ -273,7 +273,11 @@ class StatsController extends Controller
         }
 
 
-        $nextFeed = $previous->getCreatedAt()->add(new \DateInterval('PT'.ceil($averageDiff).'S'));
+        if (!is_null($previous)) {
+            $nextFeed = $previous->getCreatedAt()->add(new \DateInterval('PT'.ceil($averageDiff).'S'));
+        } else {
+            $nextFeed = null;
+        }
 
         return array(
             'average_diff' => $averageDiff / 3600,
