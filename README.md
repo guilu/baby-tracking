@@ -3,6 +3,10 @@ Baby-Tracking
 
 Aplicación para la monitorización de mi futuro bebe....
 
-v1.0
+v1.1
 
-	- Primera versión funcional, tras el fork del repo
+    - Cambiado el motor de base de datos a pdo_sqlite (la bbdd en el directorio app/data/baby.sqlite)
+
+v1.0
+    
+    - Primera versión funcional, tras el fork del repo
