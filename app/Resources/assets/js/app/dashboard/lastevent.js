@@ -11,12 +11,12 @@ $(function() {
 function updateLastEvent()
 {
     $.get('track/stats', function (response) {
-        $('.eventbutton-milk').find('.badge').html(response.milk.time);
-        $('.eventbutton-pump').find('.badge').html(response.pump.time);
-        $('.eventbutton-diaper').find('.badge').html(response.diaper.time);
-        $('.eventbutton-food').find('.badge').html(response.food.time);
+        $('.eventbutton-milk').find('.badge').html(response.leche.time);
+        $('.eventbutton-pump').find('.badge').html(response.sacaleche.time);
+        $('.eventbutton-diaper').find('.badge').html(response.panyal.time);
+        $('.eventbutton-food').find('.badge').html(response.comida.time);
 
-        if (response.sleep.type == 'start') {
+        if (response.dormir.type == 'start') {
             if ($('.sleep-items').hasClass('hide')) {
                 $('.sleep-items').removeClass('hide');
                 $('body, .face.front').animate({ backgroundColor: '#D8D8D8' });

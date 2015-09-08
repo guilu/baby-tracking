@@ -37,6 +37,12 @@ class EventType
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank(message="event_types.blank_webname")
+     */
+    private $webname;
+
+    /**
+     * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
     private $icon;
@@ -115,6 +121,22 @@ class EventType
     public function setName($name)
     {
         $this->name = $name;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWebname()
+    {
+        return $this->webname;
+    }
+
+    /**
+     * @param mixed $webname
+     */
+    public function setWebname($webname)
+    {
+        $this->webname = $webname;
     }
 
     /**

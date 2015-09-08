@@ -46,12 +46,12 @@ class DefaultController extends Controller
         $medicineTypes = $em->getRepository('AppBundle:Event')->findBy(
             array(
                 'eventType' => $em->getRepository('AppBundle:EventType')->findBy(
-                    array('name' => 'Medicine')
+                    array('name' => 'Medicina')
                 ),
             )
         );
 
-        $foodEventType = $em->getRepository('AppBundle:EventType')->findOneBy(array('name'=>'Food'));
+        $foodEventType = $em->getRepository('AppBundle:EventType')->findOneBy(array('name'=>'Comida'));
         $foodTypes = $em->getRepository('AppBundle:Event')->findDistinctAndValueOfEventType($foodEventType);
 
         return $this->render('app/dashboard.html.twig', array(

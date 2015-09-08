@@ -22,9 +22,9 @@ $(function() {
             .removeClass('btn-info')
             .addClass('btn-info');
 
-        if ($(this).data('value') == 'other') {
+        if ($(this).data('value') == 'otros') {
             // Prompt for supplies name
-            var name = prompt('Enter name:');
+            var name = prompt('Introduce el nombre:');
 
             if (!name) {
                 return false;
@@ -59,7 +59,7 @@ $(function() {
     });
 
     $('#suppliesModal button.save').fastClick(function () {
-        trackEvent($('#suppliesModal'), 'Supplies', suppliesType, $(this).parent().find('.spinner').data('value'));
+        trackEvent($('#suppliesModal'), 'Suministros', suppliesType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });

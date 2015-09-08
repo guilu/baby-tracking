@@ -10,7 +10,7 @@ $(function() {
             return false;
         }
 
-        trackEvent($('#noteModal'), 'Note', description);
+        trackEvent($('#noteModal'), 'Nota', description);
         return false;
     });
 });

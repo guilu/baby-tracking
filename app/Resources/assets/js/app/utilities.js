@@ -9,21 +9,21 @@ function formatEvent(event) {
     result.value = '';
 
     switch (eventTypeName) {
-        case 'Milk':
+        case 'Leche':
             result.description = eventTypeName + ' (' + event.subtype + ')';
             result.value = (event.subtype == 'left' || event.subtype == 'right') ? event.value + ' min.' : event.value + ' ml';
             break;
 
-        case 'Pump':
+        case 'Sacaleches':
             result.description = 'Sacaleche ' + event.subtype;
             result.value = event.value + ' ml';
             break;
 
-        case 'Diaper':
+        case 'Panyal':
             result.description = 'Cambiado un pañal ' + (event.subtype == 'both' ? 'mojado y sucio' : event.subtype);
             break;
 
-        case 'Sleep':
+        case 'Dormir':
             result.description = (event.subtype == 'start') ? 'Inicio dormir' : 'Fin dormir';
             if (event.value) {
                 if (event.value > 60) {
@@ -34,26 +34,26 @@ function formatEvent(event) {
             }
             break;
 
-        case 'Activity':
+        case 'Actividad':
             result.description = 'Actividad ' + event.subtype;
             result.value = event.value + ' min.';
             break;
 
-        case 'Medicine':
-        case 'Milestone':
-        case 'Note':
+        case 'Medicina':
+        case 'Hito':
+        case 'Nota':
             result.description = event.subtype;
             break;
 
-        case 'Food':
+        case 'Comida':
             result.description = 'Ha comido ' + event.subtype;
             break;
 
-        case 'Bath':
+        case 'Baño':
             result.description = 'Un baño refrescante!';
             break;
 
-        case 'Supplies':
+        case 'Suministros':
             result.description = event.subtype;
             result.value = event.value + ' unidades.';
             break;

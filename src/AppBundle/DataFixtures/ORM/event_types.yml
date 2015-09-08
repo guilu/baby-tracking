@@ -1,62 +1,74 @@
 #src/AppBundle/DataFixtures/ORM/event_types.yml
 AppBundle\Entity\EventType:
     eventtype1:
-        name: Milk
+        name: Leche
+        webname: Leche
         icon: icon-baby-bottle
         isPrimary: true
         colorName: primary
     eventtype2:
-        name: Pump
+        name: Sacaleche
+        webname: Sacaleche
         icon: fa fa-tint
         isPrimary: true
         colorName: warning
     eventtype3:
-        name: Diaper
+        name: Panyal
+        webname: Pañal
         icon: icon-baby-diaper
         isPrimary: true
         colorName: success
     eventtype4:
-        name: Sleep
+        name: Dormir
+        webname: Dormir
         icon: icon-baby-crib
         isPrimary: false
         colorName: info
     eventtype5:
-        name: Activity
+        name: Actividad
+        webname: Actividad
         icon: icon-baby-rattle
         isPrimary: false
         colorName: info
     eventtype6:
-        name: Medicine
+        name: Medicina
+        webname: Medicina
         icon: fa fa-medkit
         isPrimary: false
         colorName: info
     eventtype7:
         name: Doctor
+        webname: Doctor
         icon: fa fa-user-md
         isPrimary: false
         colorName: info
     eventtype8:
-        name: Bath
+        name: Banyo
+        webname: Baño
         icon: fa fa-tint
         isPrimary: false
         colorName: info
     eventtype9:
-        name: Supplies
+        name: Suministros
+        webname: Suministros
         icon: fa fa-shopping-cart
         isPrimary: false
         colorName: info
     eventtype10:
-        name: Milestone
+        name: Hito
+        webname: Hito
         icon: fa fa-trophy
         isPrimary: false
         colorName: info
     eventtype11:
-        name: Note
+        name: Nota
+        webname: Nota
         icon: fa fa-pencil
         isPrimary: false
         colorName: info
     eventtype12:
-        name: Food
+        name: Comida
+        webname: Comida
         icon: fa fa-lemon-o
         isPrimary: false
         colorName: danger

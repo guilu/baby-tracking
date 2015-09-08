@@ -1,26 +1,26 @@
-<div class="modal fade" id="pumpModal" tabindex="-1" role="dialog">
+<div class="modal fade" id="sacalecheModal" tabindex="-1" role="dialog">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
                 <div class="row pump-types">
-                    <button type="button" class="btn btn-lg btn-info" data-value="left">
-                        <i class="fa fa-arrow-left"></i> Left
+                    <button type="button" class="btn btn-lg btn-info" data-value="izquierda">
+                        <i class="fa fa-arrow-left"></i> Izquierda
                     </button>
 
-                    <button type="button" class="btn btn-lg btn-info" data-value="right">
-                        <i class="fa fa-arrow-right"></i> Right
+                    <button type="button" class="btn btn-lg btn-info" data-value="derecha">
+                        <i class="fa fa-arrow-right"></i> Derecha
                     </button>
 
-                    <button type="button" class="btn btn-lg btn-info" data-value="both">
-                        <i class="fa fa-arrows-h"></i> Both
+                    <button type="button" class="btn btn-lg btn-info" data-value="Ambos">
+                        <i class="fa fa-arrows-h"></i> Abmos
                     </button>
                 </div>
 
                 <div class="row hide pump-options">
-                    {{ spinner(0.5, 4, 'ounces') }}
+                    {{ spinner(0.5, 4, 'ml') }}
 
                     <button type="button" class="btn btn-lg btn-success save">
-                        <i class="fa fa-check"></i> Save
+                        <i class="fa fa-check"></i> Guardar
                     </button>
                 </div>
             </div>

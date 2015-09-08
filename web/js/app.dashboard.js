@@ -1,23 +1,23 @@
 $(function() {
     var activityType;
 
-    $('#activityModal').on('hidden.bs.modal', function () {
+    $('#actividadModal').on('hidden.bs.modal', function () {
         // Remove temporary buttons
-        $('#activityModal .activity-types button.temporary').remove();
+        $('#actividadModal .activity-types button.temporary').remove();
 
         // Reset all button states
-        $('#activityModal .activity-types button')
+        $('#actividadModal .activity-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
 
         // Hide all sub options
-        $('#activityModal .activity-options').addClass('hide');
+        $('#actividadModal .activity-options').addClass('hide');
     });
 
-    $('#activityModal .activity-types button').fastClick(function () {
+    $('#actividadModal .activity-types button').fastClick(function () {
         // Reset all button states
-        $('#activityModal .activity-types button')
+        $('#actividadModal .activity-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
@@ -53,25 +53,25 @@ $(function() {
         }
 
         // Show secondary options
-        $('#activityModal .activity-options').removeClass('hide');
+        $('#actividadModal .activity-options').removeClass('hide');
 
         return false;
     });
 
-    $('#activityModal button.save').fastClick(function () {
-        trackEvent($('#activityModal'), 'Activity', activityType, $(this).parent().find('.spinner').data('value'));
+    $('#actividadModal button.save').fastClick(function () {
+        trackEvent($('#actividadModal'), 'Actividad', activityType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });
 $(function() {
-    $('.eventbutton-bath').fastClick(function () {
-        trackEvent(null, 'Bath');
+    $('.eventbutton-banyo').fastClick(function () {
+        trackEvent(null, 'Banyo');
         return false;
     });
 });
 $(function() {
     $('#diaperModal button').fastClick(function () {
-        trackEvent($('#diaperModal'), 'Diaper', $(this).data('value'));
+        trackEvent($('#diaperModal'), 'Panyal', $(this).data('value'));
         return false;
     });
 });
@@ -91,6 +91,7 @@ $(function() {
     });
 
     $('#milkModal .feed-types button').fastClick(function () {
+        console.log()
         // Reset all button states
         $('#milkModal .feed-types button')
             .removeClass('btn-primary')
@@ -114,7 +115,7 @@ $(function() {
     });
 
     $('#milkModal button.save').fastClick(function () {
-        trackEvent($('#milkModal'), 'Milk', feedType, $(this).parent().find('.spinner').data('value'));
+        trackEvent($('#milkModal'), 'Leche', feedType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });
@@ -157,79 +158,13 @@ $('#list-button').fastClick(function() {
     return false;
 });
 
-function formatEvent(event) {
-    var result = {};
-
-    // Depending on the input event object the event name may have a different property acessor
-    var eventTypeName = event.type.name || event.type;
-
-    // Set default values
-    result.description = '';
-    result.value = '';
-
-    switch (eventTypeName) {
-        case 'Milk':
-            result.description = eventTypeName + ' (' + event.subtype + ')';
-            result.value = (event.subtype == 'left' || event.subtype == 'right') ? event.value + ' min.' : event.value + ' ml';
-            break;
-
-        case 'Pump':
-            result.description = 'Pumped ' + event.subtype;
-            result.value = event.value + ' ml';
-            break;
-
-        case 'Diaper':
-            result.description = 'Cambio de pañal ' + (event.subtype == 'both' ? 'humedo y sucio' : event.subtype);
-            break;
-
-        case 'Sleep':
-            result.description = (event.subtype == 'start') ? 'Inicio dormir' : 'Fin dormir';
-            if (event.value) {
-                if (event.value > 60) {
-                    result.value = Math.floor(event.value / 60) + ' horas';
-                } else {
-                    result.value = event.value + ' min.';
-                }
-            }
-            break;
-
-        case 'Activity':
-            result.description = event.subtype + ' activity';
-            result.value = event.value + ' min.';
-            break;
-
-        case 'Medicine':
-        case 'Milestone':
-        case 'Note':
-            result.description = event.subtype;
-            break;
-
-        case 'Food':
-            result.description = 'Comió ' + event.subtype;
-            break;
-
-        case 'Bath':
-            result.description = 'Un baño refrescante!';
-            break;
-
-        case 'Supplies':
-            result.description = event.subtype;
-            result.value = event.value + ' items.';
-            break;
-    }
-
-    // Upper case first letter
-    result.description = result.description.charAt(0).toUpperCase() + result.description.substr(1);
-
-    return result;
-}
 $(function() {
     $('#foodModal .food-types button').fastClick(function () {
         var foodType;
 
         var refresh = false;
-        if ($(this).data('value') == 'Other') {
-            foodType = prompt('Enter food name:');
+        if ($(this).data('value') == 'Otros') {
+            foodType = prompt('Inserta el nombre de la comida:');
             refresh = true;
 
             if (!foodType) {
@@ -239,7 +174,7 @@ $(function() {
             foodType = $(this).data('value');
         }
 
-        trackEvent($('#foodModal'), 'Food', foodType, '', refresh);
+        trackEvent($('#foodModal'), 'Comida', foodType, '', refresh);
 
         return false;
     });
@@ -257,12 +192,12 @@ $(function() {
 function updateLastEvent()
 {
     $.get('track/stats', function (response) {
-        $('.eventbutton-milk').find('.badge').html(response.milk.time);
-        $('.eventbutton-pump').find('.badge').html(response.pump.time);
-        $('.eventbutton-diaper').find('.badge').html(response.diaper.time);
-        $('.eventbutton-food').find('.badge').html(response.food.time);
+        $('.eventbutton-milk').find('.badge').html(response.leche.time);
+        $('.eventbutton-pump').find('.badge').html(response.sacaleche.time);
+        $('.eventbutton-diaper').find('.badge').html(response.panyal.time);
+        $('.eventbutton-food').find('.badge').html(response.comida.time);
 
-        if (response.sleep.type == 'start') {
+        if (response.dormir.type == 'start') {
             if ($('.sleep-items').hasClass('hide')) {
                 $('.sleep-items').removeClass('hide');
                 $('body, .face.front').animate({ backgroundColor: '#D8D8D8' });
@@ -280,8 +215,8 @@ $(function() {
         var medicineType;
 
         var refresh = false;
-        if ($(this).data('value') == 'Other') {
-            medicineType = prompt('Enter name:');
+        if ($(this).data('value') == 'Otra') {
+            medicineType = prompt('Introduce el nombre:');
             refresh = true;
 
             if (!medicineType) {
@@ -291,7 +226,7 @@ $(function() {
             medicineType = $(this).data('value');
         }
 
-        trackEvent($('#medicineModal'), 'Medicine', medicineType, '', refresh);
+        trackEvent($('#medicineModal'), 'Medicina', medicineType, '', refresh);
 
         return false;
     });
@@ -308,7 +243,7 @@ $(function() {
             return false;
         }
 
-        trackEvent($('#milestoneModal'), 'Milestone', description);
+        trackEvent($('#milestoneModal'), 'Hito', description);
         return false;
     });
 });
@@ -324,7 +259,7 @@ $(function() {
             return false;
         }
 
-        trackEvent($('#noteModal'), 'Note', description);
+        trackEvent($('#noteModal'), 'Nota', description);
         return false;
     });
 });
@@ -336,12 +271,12 @@ function showNotification(event, error) {
 
   if (!error) {
     if (event.reverted) {
-      $(selector + ' .lead strong').html('Reverted:');
+      $(selector + ' .lead strong').html('Corregido:');
       $(selector + ' .undo').hide();
       $(selector).removeClass('alert-info')
         .addClass('alert-warning');
     } else {
-      $(selector + ' .lead strong').html('Saved:');
+      $(selector + ' .lead strong').html('Guardado:');
       $(selector + ' .undo').show();
       $(selector).removeClass('alert-warning')
         .addClass('alert-info');
@@ -379,20 +314,20 @@ $('#detailsModal button.save').fastClick(function () {
 $(function() {
     var pumpType;
 
-    $('#pumpModal').on('hidden.bs.modal', function () {
+    $('#sacalecheModal').on('hidden.bs.modal', function () {
         // Reset all button states
-        $('#pumpModal .pump-types button')
+        $('#sacalecheModal .pump-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
 
         // Hide all sub options
-        $('#pumpModal .pump-options').addClass('hide');
+        $('#sacalecheModal .pump-options').addClass('hide');
     });
 
-    $('#pumpModal .pump-types button').fastClick(function () {
+    $('#sacalecheModal .pump-types button').fastClick(function () {
         // Reset all button states
-        $('#pumpModal .pump-types button')
+        $('#sacalecheModal .pump-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
@@ -400,21 +335,21 @@ $(function() {
         // Make this button primary
         $(this).removeClass('btn-info').addClass('btn-primary');
 
-        $('#pumpModal .pump-options').removeClass('hide');
+        $('#sacalecheModal .pump-options').removeClass('hide');
 
         pumpType = $(this).data('value');
 
         return false;
     });
 
-    $('#pumpModal button.save').fastClick(function () {
-        trackEvent($('#pumpModal'), 'Pump', pumpType, $(this).parent().find('.spinner').data('value'));
+    $('#sacalecheModal button.save').fastClick(function () {
+        trackEvent($('#sacalecheModal'), 'Sacaleche', pumpType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });
 $(function() {
-    $('.eventbutton-sleep').fastClick(function () {
-        trackEvent(null, 'Sleep');
+    $('.eventbutton-dormir').fastClick(function () {
+        trackEvent(null, 'Dormir');
         return false;
     });
 });
@@ -480,9 +415,9 @@ $(function() {
             .removeClass('btn-info')
             .addClass('btn-info');
 
-        if ($(this).data('value') == 'other') {
+        if ($(this).data('value') == 'otros') {
             // Prompt for supplies name
-            var name = prompt('Enter name:');
+            var name = prompt('Introduce el nombre:');
 
             if (!name) {
                 return false;
@@ -517,7 +452,7 @@ $(function() {
     });
 
     $('#suppliesModal button.save').fastClick(function () {
-        trackEvent($('#suppliesModal'), 'Supplies', suppliesType, $(this).parent().find('.spinner').data('value'));
+        trackEvent($('#suppliesModal'), 'Suministros', suppliesType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });

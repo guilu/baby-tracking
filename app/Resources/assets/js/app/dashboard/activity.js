@@ -1,23 +1,23 @@
 $(function() {
     var activityType;
 
-    $('#activityModal').on('hidden.bs.modal', function () {
+    $('#actividadModal').on('hidden.bs.modal', function () {
         // Remove temporary buttons
-        $('#activityModal .activity-types button.temporary').remove();
+        $('#actividadModal .activity-types button.temporary').remove();
 
         // Reset all button states
-        $('#activityModal .activity-types button')
+        $('#actividadModal .activity-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
 
         // Hide all sub options
-        $('#activityModal .activity-options').addClass('hide');
+        $('#actividadModal .activity-options').addClass('hide');
     });
 
-    $('#activityModal .activity-types button').fastClick(function () {
+    $('#actividadModal .activity-types button').fastClick(function () {
         // Reset all button states
-        $('#activityModal .activity-types button')
+        $('#actividadModal .activity-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
@@ -53,13 +53,13 @@ $(function() {
         }
 
         // Show secondary options
-        $('#activityModal .activity-options').removeClass('hide');
+        $('#actividadModal .activity-options').removeClass('hide');
 
         return false;
     });
 
-    $('#activityModal button.save').fastClick(function () {
-        trackEvent($('#activityModal'), 'Activity', activityType, $(this).parent().find('.spinner').data('value'));
+    $('#actividadModal button.save').fastClick(function () {
+        trackEvent($('#actividadModal'), 'Actividad', activityType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });

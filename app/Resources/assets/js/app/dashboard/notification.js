@@ -6,12 +6,12 @@ function showNotification(event, error) {
 
   if (!error) {
     if (event.reverted) {
-      $(selector + ' .lead strong').html('Reverted:');
+      $(selector + ' .lead strong').html('Corregido:');
       $(selector + ' .undo').hide();
       $(selector).removeClass('alert-info')
         .addClass('alert-warning');
     } else {
-      $(selector + ' .lead strong').html('Saved:');
+      $(selector + ' .lead strong').html('Guardado:');
       $(selector + ' .undo').show();
       $(selector).removeClass('alert-warning')
         .addClass('alert-info');

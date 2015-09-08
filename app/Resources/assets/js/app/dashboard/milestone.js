@@ -10,7 +10,7 @@ $(function() {
             return false;
         }
 
-        trackEvent($('#milestoneModal'), 'Milestone', description);
+        trackEvent($('#milestoneModal'), 'Hito', description);
         return false;
     });
 });

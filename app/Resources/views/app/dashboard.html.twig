@@ -68,7 +68,7 @@
                                 {% if eventType.isPrimary %}
                                     <span class="badge"></span>
                                 {% endif %}
-                                <i class="{{ eventType.icon }}"></i> {{ eventType.name }}
+                                <i class="{{ eventType.icon }}"></i> {{ eventType.webname }}
                             </button>
                         {% endfor %}
                     </div>
@@ -83,5 +83,5 @@
 {% endblock %}
 
 {% block javascripts %}
-    <script src="{{ asset('js/app.dashboard.min.js') }}"></script>
+    <script src="{{ asset('js/app.dashboard.js') }}"></script>
 {% endblock %}

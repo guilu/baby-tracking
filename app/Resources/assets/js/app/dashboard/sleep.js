@@ -1,6 +1,6 @@
 $(function() {
-    $('.eventbutton-sleep').fastClick(function () {
-        trackEvent(null, 'Sleep');
+    $('.eventbutton-dormir').fastClick(function () {
+        trackEvent(null, 'Dormir');
         return false;
     });
 });

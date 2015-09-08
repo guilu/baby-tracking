@@ -209,7 +209,7 @@ class EventController extends Controller
             $entity = $em->getRepository('AppBundle:Event')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find Event entity.');
+                throw $this->createNotFoundException("No se ecuentra el evento $idF.");
             }
 
             $em->remove($entity);

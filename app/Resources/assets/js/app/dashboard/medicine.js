@@ -3,8 +3,8 @@ $(function() {
         var medicineType;
 
         var refresh = false;
-        if ($(this).data('value') == 'Other') {
-            medicineType = prompt('Enter name:');
+        if ($(this).data('value') == 'Otra') {
+            medicineType = prompt('Introduce el nombre:');
             refresh = true;
 
             if (!medicineType) {
@@ -14,7 +14,7 @@ $(function() {
             medicineType = $(this).data('value');
         }
 
-        trackEvent($('#medicineModal'), 'Medicine', medicineType, '', refresh);
+        trackEvent($('#medicineModal'), 'Medicina', medicineType, '', refresh);
 
         return false;
     });

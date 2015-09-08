@@ -44,7 +44,7 @@ class TrackController extends Controller
         $subtype = $request->get('subtype');
         $value   = $request->get('value');
 
-        if ($eventType->getName() == 'Sleep') {
+        if ($eventType->getName() == 'Dormir') {
             /** @var Event $lastSleepEvent */
             $lastSleepEvent = $em->getRepository('AppBundle:Event')->findLastEventOfType($eventType);
 
@@ -158,14 +158,13 @@ class TrackController extends Controller
     public function getStats()
     {
         $result         = array();
-        $eventTypeNames = array('Milk', 'Pump', 'Diaper', 'Sleep', 'Food');
+        $eventTypeNames = array('Leche', 'Sacaleche', 'Panyal', 'Dormir', 'Comida');
 
         $em = $this->get('doctrine.orm.entity_manager');
 
         foreach ($eventTypeNames as $eventTypeName) {
             /** @var EventType $feedType */
             $eventType = $em->getRepository('AppBundle:EventType')->findOneBy(array('name' => $eventTypeName));
-
             /** @var Event $last */
             $last = $em->getRepository('AppBundle:Event')->findLastEventOfType($eventType);
 

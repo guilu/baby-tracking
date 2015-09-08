@@ -108,7 +108,7 @@ class EventTypeController extends Controller
         $entity = $em->getRepository('AppBundle:EventType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find EventType entity.');
+            throw $this->createNotFoundException("No se encuentra el EventType $id.");
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -169,7 +169,7 @@ class EventTypeController extends Controller
         $entity = $em->getRepository('AppBundle:EventType')->find($id);
 
         if (!$entity) {
-            throw $this->createNotFoundException('Unable to find EventType entity.');
+            throw $this->createNotFoundException("No se encuentra el EventType $id.");
         }
 
         $deleteForm = $this->createDeleteForm($id);
@@ -210,7 +210,7 @@ class EventTypeController extends Controller
             $entity = $em->getRepository('AppBundle:EventType')->find($id);
 
             if (!$entity) {
-                throw $this->createNotFoundException('Unable to find EventType entity.');
+                throw $this->createNotFoundException("No se encuentra el EventType $id.");
             }
 
             $em->remove($entity);

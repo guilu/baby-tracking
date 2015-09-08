@@ -1,6 +1,6 @@
 $(function() {
-    $('.eventbutton-bath').fastClick(function () {
-        trackEvent(null, 'Bath');
+    $('.eventbutton-banyo').fastClick(function () {
+        trackEvent(null, 'Banyo');
         return false;
     });
 });

@@ -38,7 +38,7 @@ $(function() {
     });
 
     $('#milkModal button.save').fastClick(function () {
-        trackEvent($('#milkModal'), 'Milk', feedType, $(this).parent().find('.spinner').data('value'));
+        trackEvent($('#milkModal'), 'Leche', feedType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });

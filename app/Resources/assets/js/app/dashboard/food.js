@@ -3,8 +3,8 @@ $(function() {
         var foodType;
 
         var refresh = false;
-        if ($(this).data('value') == 'Other') {
-            foodType = prompt('Enter food name:');
+        if ($(this).data('value') == 'Otros') {
+            foodType = prompt('Inserta el nombre de la comida:');
             refresh = true;
 
             if (!foodType) {
@@ -14,7 +14,7 @@ $(function() {
             foodType = $(this).data('value');
         }
 
-        trackEvent($('#foodModal'), 'Food', foodType, '', refresh);
+        trackEvent($('#foodModal'), 'Comida', foodType, '', refresh);
 
         return false;
     });

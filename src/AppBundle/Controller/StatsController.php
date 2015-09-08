@@ -49,7 +49,7 @@ class StatsController extends Controller
     {
         $now = new \DateTime();
         $last = array();
-        $eventTypeNames = array('Bath', 'Milk', 'Diaper', 'Sleep');
+        $eventTypeNames = array('Banyo', 'Leche', 'Panyal', 'Dormir');
 
         $em = $this->get('doctrine.orm.entity_manager');
         $eventRepo = $em->getRepository('AppBundle:Event');
@@ -68,12 +68,12 @@ class StatsController extends Controller
 
         return array(
             'age' => $this->get('helpers')->formatAge(new \DateTime('2015-12-21 20:59:00')),
-            'sleeping' => ($last['sleep']['type'] == 'start'),
+            'sleeping' => ($last['dormir']['type'] == 'start'),
             'attributes' => array(
-                'hygiene' => 1.0 - (($now->getTimestamp() - $last['bath']['timestamp']) / 3600 / 240),
-                'hunger' => 1.0 - (($now->getTimestamp() - $last['milk']['timestamp']) / 3600 / 20),
-                'bladder' => 1.0 - (($now->getTimestamp() - $last['diaper']['timestamp']) / 3600 / 10),
-                'energy' => 1.0 - (($now->getTimestamp() - $last['sleep']['timestamp']) / 3600 / 5),
+                'higiene' => 1.0 - (($now->getTimestamp() - $last['banyo']['timestamp']) / 3600 / 240),
+                'hambre' => 1.0 - (($now->getTimestamp() - $last['leche']['timestamp']) / 3600 / 20),
+                'vejiga' => 1.0 - (($now->getTimestamp() - $last['panyal']['timestamp']) / 3600 / 10),
+                'energia' => 1.0 - (($now->getTimestamp() - $last['dormir']['timestamp']) / 3600 / 5),
             ),
         );
     }
@@ -89,7 +89,7 @@ class StatsController extends Controller
         $oneWeekAgo->sub(new \DateInterval('P7D'));
 
         $em                = $this->get('doctrine.orm.entity_manager');
-        $eventTypePanyales = $em->getRepository('AppBundle:EventType')->findOneBy(array('name' => 'Diaper'));
+        $eventTypePanyales = $em->getRepository('AppBundle:EventType')->findOneBy(array('name' => 'Panyal'));
         $diaperChanges = $em->getRepository('AppBundle:Event')->findGroupedByEventType($eventTypePanyales, $oneWeekAgo);
 
         $labels = array();
@@ -118,18 +118,18 @@ class StatsController extends Controller
 
 
         if ($data == null) {
-            $data['wet'] = null;
-            $data['dirty'] = null;
-            $data['both'] = null;
+            $data['humedo'] = null;
+            $data['sucio'] = null;
+            $data['ambos'] = null;
         } else {
-            if (!array_key_exists('wet', $data)) {
-                $data['wet'] = array();
+            if (!array_key_exists('humedo', $data)) {
+                $data['humedo'] = array();
             }
-            if (!array_key_exists('dirty', $data)) {
-                $data['dirty'] = array();
+            if (!array_key_exists('sucio', $data)) {
+                $data['sucio'] = array();
             }
-            if (!array_key_exists('both', $data)) {
-                $data['both'] = array();
+            if (!array_key_exists('ambos', $data)) {
+                $data['ambos'] = array();
             }
         }
 
@@ -143,7 +143,7 @@ class StatsController extends Controller
                     'pointStrokeColor' => '#FFF',
                     'data'             => $this->constructData(
                         $labels,
-                        array($data['wet'], $data['dirty'], $data['both'])
+                        array($data['humedo'], $data['sucio'], $data['ambos'])
                     ),
                 ),
                 array(
@@ -151,21 +151,21 @@ class StatsController extends Controller
                     'strokeColor'      => 'rgba(200,200,200,1.0)',
                     'pointColor'       => 'rgba(200,200,200,1.0)',
                     'pointStrokeColor' => '#FFF',
-                    'data'             => $this->constructData($labels, $data['wet']),
+                    'data'             => $this->constructData($labels, $data['humedo']),
                 ),
                 array(
                     'fillColor'        => 'rgba(110,110,110,0.0)',
                     'strokeColor'      => 'rgba(110,110,110,1.0)',
                     'pointColor'       => 'rgba(110,110,110,1.0)',
                     'pointStrokeColor' => '#FFF',
-                    'data'             => $this->constructData($labels, $data['dirty']),
+                    'data'             => $this->constructData($labels, $data['sucio']),
                 ),
                 array(
                     'fillColor'        => 'rgba(50,50,50,0.0)',
                     'strokeColor'      => 'rgba(50,50,50,1.0)',
                     'pointColor'       => 'rgba(50,50,50,1.0)',
                     'pointStrokeColor' => '#FFF',
-                    'data'             => $this->constructData($labels, $data['both']),
+                    'data'             => $this->constructData($labels, $data['ambos']),
                 ),
             ),
         );
@@ -180,11 +180,11 @@ class StatsController extends Controller
         $eventRepo = $em->getRepository('AppBundle:Event');
         $eventTypeRepo = $em->getRepository('AppBundle:EventType');
 
-        $supplies = $eventTypeRepo->findOneBy(array('name'=>'Supplies'));
+        $supplies = $eventTypeRepo->findOneBy(array('name'=>'Suministros'));
         $diapersPurchased = $eventRepo->sumEventValuesOfEventType($supplies);
 
         // Find used diapers
-        $diapers = $eventTypeRepo->findOneBy(array('name'=>'Diaper'));
+        $diapers = $eventTypeRepo->findOneBy(array('name'=>'Panyal'));
         $diapersUsed = $eventRepo->countEventsOfEventType($diapers);
 
         // Calculate available diapers
@@ -226,7 +226,7 @@ class StatsController extends Controller
         $eventtypeRepo = $em->getRepository('AppBundle:EventType');
 
         /** @var Event $last */
-        $last = $eventRepo->findLastEventOfType($eventtypeRepo->findOneBy(array('name'=>'Milk')));
+        $last = $eventRepo->findLastEventOfType($eventtypeRepo->findOneBy(array('name'=>'Leche')));
 
         $icon = "";
         if (!is_null($last)) {
@@ -263,7 +263,7 @@ class StatsController extends Controller
         $eventRepo = $em->getRepository('AppBundle:Event');
         $eventtypeRepo = $em->getRepository('AppBundle:EventType');
 
-        $feedings = $eventRepo->findCreatedAfterOfType($oneDayAgo, $eventtypeRepo->findOneBy(array('name'=>'Milk')));
+        $feedings = $eventRepo->findCreatedAfterOfType($oneDayAgo, $eventtypeRepo->findOneBy(array('name'=>'Leche')));
 
         $timeBetween = array();
         $previous = null;
@@ -321,10 +321,10 @@ class StatsController extends Controller
             /** @var Event $event */
             $percent = ($event->getCreatedAt()->getTimestamp() - $start->getTimestamp()) / (3600 * 24);
 
-            if ($event->getEventType()->getName() == 'Sleep' && $event->getSubType() == 'end') {
-                // Find last sleep start and update the the width
+            if ($event->getEventType()->getName() == 'Dormir' && $event->getSubType() == 'end') {
+                // Find last dormir start and update the the width
                 for ($i = count($result) - 1; $i >= 0; $i--) {
-                    if ($result[$i]['type'] == 'Sleep' && $result[$i]['subtype'] == 'start') {
+                    if ($result[$i]['type'] == 'Dormir' && $result[$i]['subtype'] == 'start') {
                         $percent = ($event->getCreatedAt()->getTimestamp() - $result[$i]['timestamp']) / (3600 * 24);
                         $result[$i]['width'] = $percent;
                         $result[$i]['value'] = floor(($event->getCreatedAt()->getTimestamp() - $result[$i]['timestamp']) / 60);
@@ -334,7 +334,7 @@ class StatsController extends Controller
             } else {
                 $width = 0.01;
 
-                if ($event->getEventType()->getName() == 'Milk') {
+                if ($event->getEventType()->getName() == 'Leche') {
                     if ($event->getSubType() == 'left' || $event->getSubType() == 'right') {
                         $width = 0.005 * ($event->getValue() / 8);
                     } else {
@@ -354,12 +354,12 @@ class StatsController extends Controller
             }
         }
 
-        // If sleeping, set last "start" sleep to end at current timestamp in the output
+        // If sleeping, set last "start" dormir to end at current timestamp in the output
         if ($isSleeping) {
-            // Find last sleep start and update the the width
+            // Find last dormir start and update the the width
             $now = new \DateTime();
             for ($i = count($result) - 1; $i > 0; $i--) {
-                if ($result[$i]['type'] == 'Sleep' && $result[$i]['subtype'] == 'start') {
+                if ($result[$i]['type'] == 'Dormir' && $result[$i]['subtype'] == 'start') {
                     $percent = ($now->getTimestamp() - $result[$i]['timestamp']) / (3600 * 24);
                     $result[$i]['width'] = $percent;
                     break;

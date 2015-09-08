@@ -34,7 +34,7 @@ function updateStats()
             $('.profile-energy').parent().removeClass('active');
         }
 
-        // Diaper graph
+        // Pañal graph
         var ctx = $("#diaperchart").get(0).getContext("2d");
         var options = {
             scaleOverride: true,
@@ -51,7 +51,7 @@ function updateStats()
         $("#diaperchart").css('padding-left','10px');
         $("#diaperchart").css('padding-right','10px');
 
-        // Diaper stats
+        // Pañal stats
         $('.diapers-available').html(data.diaper_stats.available);
         $('.diapers-run-out-days').html(data.diaper_stats.run_out.days + '<span>dias</span>');
         $('.diapers-run-out-date').html(data.diaper_stats.run_out.date);
@@ -80,27 +80,27 @@ function updateStats()
         $.each(data.day_chart, function (index, event) {
             var colorName = null;
             switch (event.type) {
-                case 'Milk':
+                case 'Leche':
                     colorName = 'info';
                     break;
 
-                case 'Diaper':
+                case 'Panyal':
                     colorName = 'success';
                     break;
                     
-                case 'Sleep':
+                case 'Dormir':
                     colorName = 'warning';
                     break;
                     
-                case 'Activity':
+                case 'Actividad':
                     colorName = 'warning';
                     break;
                     
-                case 'Medicine':
+                case 'Medicina':
                     colorName = 'danger';
                     break;
                     
-                case 'Bath':
+                case 'Baño':
                     colorName = 'info';
                     break;
                     
