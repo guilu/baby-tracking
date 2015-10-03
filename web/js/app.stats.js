@@ -8,7 +8,7 @@ $(function() {
 
     // Update stats by polling for updates
     updateStats();
-    setInterval('updateStats()', 60000);
+    setInterval('updateStats()', 5000);
 });
 
 function updateStats()
@@ -16,22 +16,22 @@ function updateStats()
     $.get('stats/update', function (data) {
         // Profile
         $('.profile-age').html(data.profile.age + ' de vida');
-        barColor($('.profile-hygiene'), data.profile.attributes.hygiene * 100);
-        $('.profile-hygiene').css('width', (data.profile.attributes.hygiene * 100.0) + '%');
-        barColor($('.profile-hunger'), data.profile.attributes.hunger * 100);
-        $('.profile-hunger').css('width', (data.profile.attributes.hunger * 100.0) + '%');
-        barColor($('.profile-bladder'), data.profile.attributes.bladder * 100);
-        $('.profile-bladder').css('width', (data.profile.attributes.bladder * 100.0) + '%');
-        barColor($('.profile-energy'), data.profile.attributes.energy * 100);
-        $('.profile-energy').css('width', (data.profile.attributes.energy * 100.0) + '%');
+        barColor($('.profile-higiene'), data.profile.attributes.higiene * 100);
+        $('.profile-higiene').css('width', (data.profile.attributes.higiene * 100.0) + '%');
+        barColor($('.profile-hambre'), data.profile.attributes.hambre * 100);
+        $('.profile-hambre').css('width', (data.profile.attributes.hambre * 100.0) + '%');
+        barColor($('.profile-vejiga'), data.profile.attributes.vejiga * 100);
+        $('.profile-vejiga').css('width', (data.profile.attributes.vejiga * 100.0) + '%');
+        barColor($('.profile-energia'), data.profile.attributes.energia * 100);
+        $('.profile-energia').css('width', (data.profile.attributes.energia * 100.0) + '%');
 
         if (data.profile.sleeping) {
             $('.box-profile .sleep-items').removeClass('hide');
             $('.profile-age').append('<span>Durmiendo (ssh!)</span>');
-            $('.profile-energy').parent().addClass('active');
+            $('.profile-energia').parent().addClass('active');
         } else {
             $('.box-profile .sleep-items').addClass('hide');
-            $('.profile-energy').parent().removeClass('active');
+            $('.profile-energia').parent().removeClass('active');
         }
 
         // Pañal graph
@@ -66,7 +66,7 @@ function updateStats()
         $('.last-fed-time').html(data.last_fed.formatted_time.replace(' y', ', '));
 
         var amount = '';
-        if (data.last_fed.type == 'left' || data.last_fed.type == 'right') {
+        if (data.last_fed.type == 'izquierda' || data.last_fed.type == 'derecha') {
             amount = data.last_fed.value + '<span>min.</span>';
         } else {
             amount = data.last_fed.value + '<span>ml.</span>';
@@ -107,6 +107,8 @@ function updateStats()
             }
 
             if (colorName != null) {
+
+                console.log("voy a poner las barras");
                 var bar = $('<div>')
                     .addClass('progress-bar')
                     .addClass('progress-bar-' + colorName)

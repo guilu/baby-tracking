@@ -11,3 +11,6 @@
 /web/bundles/
 
 /app/data/*
+
+/node_modules/
+/bower_components/

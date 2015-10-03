@@ -231,8 +231,8 @@ class StatsController extends Controller
         $icon = "";
         if (!is_null($last)) {
             $icons = array(
-                'left' => 'fa fa-arrow-left',
-                'right' => 'fa fa-arrow-right',
+                'izquierda' => 'fa fa-arrow-left',
+                'derecha' => 'fa fa-arrow-right',
                 'pumped' => 'fa fa-tint',
                 'formula' => 'fa fa-magic',
             );

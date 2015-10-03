@@ -1,23 +1,23 @@
 $(function() {
     var suppliesType;
 
-    $('#suppliesModal').on('hidden.bs.modal', function () {
+    $('#suministrosModal').on('hidden.bs.modal', function () {
         // Remove temporary buttons
-        $('#suppliesModal .supplies-types button.temporary').remove();
+        $('#suministrosModal .supplies-types button.temporary').remove();
 
         // Reset all button states
-        $('#suppliesModal .supplies-types button')
+        $('#suministrosModal .supplies-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
 
         // Hide all sub options
-        $('#suppliesModal .supplies-options').addClass('hide');
+        $('#suministrosModal .supplies-options').addClass('hide');
     });
 
-    $('#suppliesModal .supplies-types button').fastClick(function () {
+    $('#suministrosModal .supplies-types button').fastClick(function () {
         // Reset all button states
-        $('#suppliesModal .supplies-types button')
+        $('#suministrosModal .supplies-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
@@ -53,13 +53,13 @@ $(function() {
         }
 
         // Show secondary options
-        $('#suppliesModal .supplies-options').removeClass('hide');
+        $('#suministrosModal .supplies-options').removeClass('hide');
 
         return false;
     });
 
-    $('#suppliesModal button.save').fastClick(function () {
-        trackEvent($('#suppliesModal'), 'Suministros', suppliesType, $(this).parent().find('.spinner').data('value'));
+    $('#suministrosModal button.save').fastClick(function () {
+        trackEvent($('#suministrosModal'), 'Suministros', suppliesType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });

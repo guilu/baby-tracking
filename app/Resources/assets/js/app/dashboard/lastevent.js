@@ -11,20 +11,20 @@ $(function() {
 function updateLastEvent()
 {
     $.get('track/stats', function (response) {
-        $('.eventbutton-milk').find('.badge').html(response.leche.time);
-        $('.eventbutton-pump').find('.badge').html(response.sacaleche.time);
-        $('.eventbutton-diaper').find('.badge').html(response.panyal.time);
-        $('.eventbutton-food').find('.badge').html(response.comida.time);
+        $('.eventbutton-leche').find('.badge').html(response.leche.time);
+        $('.eventbutton-sacaleche').find('.badge').html(response.sacaleche.time);
+        $('.eventbutton-panyal').find('.badge').html(response.panyal.time);
+        $('.eventbutton-comida').find('.badge').html(response.comida.time);
 
         if (response.dormir.type == 'start') {
             if ($('.sleep-items').hasClass('hide')) {
                 $('.sleep-items').removeClass('hide');
-                $('body, .face.front').animate({ backgroundColor: '#D8D8D8' });
+                $('body').animate({ backgroundColor: '#CCC' });
             }
         } else {
             if (!$('.sleep-items').hasClass('hide')) {
                 $('.sleep-items').addClass('hide');
-                $('body, .face.front').animate({ backgroundColor: '#FFF' });
+                $('body').animate({ backgroundColor: '#FFF' });
             }
         }
     });

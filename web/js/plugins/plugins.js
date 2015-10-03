@@ -20266,7 +20266,7 @@ $(function(){
 
 
 }).call(this);
-/*! flip - v1.0.16 - 2015-08-09
+/*! flip - v1.0.17 - 2015-09-17
 * https://github.com/nnattawat/flip
 * Copyright (c) 2015 Nattawat Nonsung; Licensed MIT */
 (function( $ ) {

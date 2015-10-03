@@ -70,30 +70,30 @@ $(function() {
     });
 });
 $(function() {
-    $('#diaperModal button').fastClick(function () {
-        trackEvent($('#diaperModal'), 'Panyal', $(this).data('value'));
+    $('#panyalModal button').fastClick(function () {
+        trackEvent($('#panyalModal'), 'Panyal', $(this).data('value'));
         return false;
     });
 });
 $(function() {
     var feedType;
 
-    $('#milkModal').on('hidden.bs.modal', function () {
+    $('#lecheModal').on('hidden.bs.modal', function () {
         // Reset all button states
-        $('#milkModal .feed-types button')
+        $('#lecheModal .feed-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
 
         // Hide all sub options
-        $('#milkModal .bottle-options').addClass('hide');
-        $('#milkModal .time-options').addClass('hide');
+        $('#lecheModal .bottle-options').addClass('hide');
+        $('#lecheModal .time-options').addClass('hide');
     });
 
-    $('#milkModal .feed-types button').fastClick(function () {
+    $('#lecheModal .feed-types button').fastClick(function () {
         console.log()
         // Reset all button states
-        $('#milkModal .feed-types button')
+        $('#lecheModal .feed-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
@@ -101,12 +101,12 @@ $(function() {
         // Make this button primary
         $(this).removeClass('btn-info').addClass('btn-primary');
 
-        if ($(this).data('value') == 'left' || $(this).data('value') == 'right') {
-            $('#milkModal .time-options').removeClass('hide');
-            $('#milkModal .bottle-options').addClass('hide');
+        if ($(this).data('value') == 'izquierda' || $(this).data('value') == 'derecha') {
+            $('#lecheModal .time-options').removeClass('hide');
+            $('#lecheModal .bottle-options').addClass('hide');
         } else {
-            $('#milkModal .bottle-options').removeClass('hide');
-            $('#milkModal .time-options').addClass('hide');
+            $('#lecheModal .bottle-options').removeClass('hide');
+            $('#lecheModal .time-options').addClass('hide');
         }
 
         feedType = $(this).data('value');
@@ -114,8 +114,8 @@ $(function() {
         return false;
     });
 
-    $('#milkModal button.save').fastClick(function () {
-        trackEvent($('#milkModal'), 'Leche', feedType, $(this).parent().find('.spinner').data('value'));
+    $('#lecheModal button.save').fastClick(function () {
+        trackEvent($('#lecheModal'), 'Leche', feedType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });
@@ -192,20 +192,20 @@ $(function() {
 function updateLastEvent()
 {
     $.get('track/stats', function (response) {
-        $('.eventbutton-milk').find('.badge').html(response.leche.time);
-        $('.eventbutton-pump').find('.badge').html(response.sacaleche.time);
-        $('.eventbutton-diaper').find('.badge').html(response.panyal.time);
-        $('.eventbutton-food').find('.badge').html(response.comida.time);
+        $('.eventbutton-leche').find('.badge').html(response.leche.time);
+        $('.eventbutton-sacaleche').find('.badge').html(response.sacaleche.time);
+        $('.eventbutton-panyal').find('.badge').html(response.panyal.time);
+        $('.eventbutton-comida').find('.badge').html(response.comida.time);
 
         if (response.dormir.type == 'start') {
             if ($('.sleep-items').hasClass('hide')) {
                 $('.sleep-items').removeClass('hide');
-                $('body, .face.front').animate({ backgroundColor: '#D8D8D8' });
+                $('body').animate({ backgroundColor: '#CCC' });
             }
         } else {
             if (!$('.sleep-items').hasClass('hide')) {
                 $('.sleep-items').addClass('hide');
-                $('body, .face.front').animate({ backgroundColor: '#FFF' });
+                $('body').animate({ backgroundColor: '#FFF' });
             }
         }
     });
@@ -394,23 +394,23 @@ function formatDecimal(value) {
 $(function() {
     var suppliesType;
 
-    $('#suppliesModal').on('hidden.bs.modal', function () {
+    $('#suministrosModal').on('hidden.bs.modal', function () {
         // Remove temporary buttons
-        $('#suppliesModal .supplies-types button.temporary').remove();
+        $('#suministrosModal .supplies-types button.temporary').remove();
 
         // Reset all button states
-        $('#suppliesModal .supplies-types button')
+        $('#suministrosModal .supplies-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
 
         // Hide all sub options
-        $('#suppliesModal .supplies-options').addClass('hide');
+        $('#suministrosModal .supplies-options').addClass('hide');
     });
 
-    $('#suppliesModal .supplies-types button').fastClick(function () {
+    $('#suministrosModal .supplies-types button').fastClick(function () {
         // Reset all button states
-        $('#suppliesModal .supplies-types button')
+        $('#suministrosModal .supplies-types button')
             .removeClass('btn-primary')
             .removeClass('btn-info')
             .addClass('btn-info');
@@ -446,13 +446,13 @@ $(function() {
         }
 
         // Show secondary options
-        $('#suppliesModal .supplies-options').removeClass('hide');
+        $('#suministrosModal .supplies-options').removeClass('hide');
 
         return false;
     });
 
-    $('#suppliesModal button.save').fastClick(function () {
-        trackEvent($('#suppliesModal'), 'Suministros', suppliesType, $(this).parent().find('.spinner').data('value'));
+    $('#suministrosModal button.save').fastClick(function () {
+        trackEvent($('#suministrosModal'), 'Suministros', suppliesType, $(this).parent().find('.spinner').data('value'));
         return false;
     });
 });
