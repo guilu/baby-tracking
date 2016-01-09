@@ -15,27 +15,33 @@ function updateStats()
 {
     $.get('stats/update', function (data) {
         // Profile
-        $('.profile-age').html(data.profile.age + ' de vida');
-        barColor($('.profile-higiene'), data.profile.attributes.higiene * 100);
-        $('.profile-higiene').css('width', (data.profile.attributes.higiene * 100.0) + '%');
-        barColor($('.profile-hambre'), data.profile.attributes.hambre * 100);
-        $('.profile-hambre').css('width', (data.profile.attributes.hambre * 100.0) + '%');
-        barColor($('.profile-vejiga'), data.profile.attributes.vejiga * 100);
-        $('.profile-vejiga').css('width', (data.profile.attributes.vejiga * 100.0) + '%');
-        barColor($('.profile-energia'), data.profile.attributes.energia * 100);
-        $('.profile-energia').css('width', (data.profile.attributes.energia * 100.0) + '%');
+        var $profileAge = $('.profile-age');
+        var $profileHigiene = $('.profile-higiene');
+        var $profileHambre = $('.profile-hambre');
+        var $profileVejiga = $('.profile-vejiga');
+        var $profileEnergia = $('.profile-energia');
+        $profileAge.html(data.profile.age + ' de vida');
+        barColor($profileHigiene, data.profile.attributes.higiene * 100);
+        $profileHigiene.css('width', (data.profile.attributes.higiene * 100.0) + '%');
+        barColor($profileHambre, data.profile.attributes.hambre * 100);
+        $profileHambre.css('width', (data.profile.attributes.hambre * 100.0) + '%');
+        barColor($profileVejiga, data.profile.attributes.vejiga * 100);
+        $profileVejiga.css('width', (data.profile.attributes.vejiga * 100.0) + '%');
+        barColor($profileEnergia, data.profile.attributes.energia * 100);
+        $profileEnergia.css('width', (data.profile.attributes.energia * 100.0) + '%');
 
         if (data.profile.sleeping) {
             $('.box-profile .sleep-items').removeClass('hide');
-            $('.profile-age').append('<span>Durmiendo (ssh!)</span>');
-            $('.profile-energia').parent().addClass('active');
+            $profileAge.append('<span>Durmiendo (ssh!)</span>');
+            $profileEnergia.parent().addClass('active');
         } else {
             $('.box-profile .sleep-items').addClass('hide');
-            $('.profile-energia').parent().removeClass('active');
+            $profileEnergia.parent().removeClass('active');
         }
 
         // Pañal graph
-        var ctx = $("#diaperchart").get(0).getContext("2d");
+        var $diaperChart = $("#diaperchart");
+        var ctx = $diaperChart.get(0).getContext("2d");
         var options = {
             scaleOverride: true,
             scaleSteps: 10,
@@ -48,8 +54,8 @@ function updateStats()
             animation: first
         };
         var diaperchart = new Chart(ctx).Line(data.diaper_graph, options);
-        $("#diaperchart").css('padding-left','10px');
-        $("#diaperchart").css('padding-right','10px');
+        $diaperChart.css('padding-left','10px');
+        $diaperChart.css('padding-right','10px');
 
         // Pañal stats
         $('.diapers-available').html(data.diaper_stats.available);
@@ -109,6 +115,9 @@ function updateStats()
             if (colorName != null) {
 
                 console.log("voy a poner las barras");
+                var $descripcion = $('.box-day-chart .chart-description');
+                var $progress = $('.box-day-chart .progress');
+
                 var bar = $('<div>')
                     .addClass('progress-bar')
                     .addClass('progress-bar-' + colorName)
@@ -119,18 +128,19 @@ function updateStats()
                 bar.fastClick(function() {
                     var event = $(this).data('event');
                     var formattedEvent = formatEvent(event);
-                    $('.box-day-chart .chart-description').html('<strong>' + event.time + '</strong>');
+
+                    $descripcion.html('<strong>' + event.time + '</strong>');
 
                     var description = (formattedEvent.description == 'Fin dormir' ? 'Durmiendo' : formattedEvent.description);
 
-                    $('.box-day-chart .chart-description').append(description);
+                    $descripcion.append(description);
 
                     if (formattedEvent.value) {
-                        $('.box-day-chart .chart-description').append('&mdash; ' + formattedEvent.value)
+                        $descripcion.append('&mdash; ' + formattedEvent.value)
                     }
                 });
 
-                $('.box-day-chart .progress').append(bar);
+                $progress.append(bar);
             }
         });
     });

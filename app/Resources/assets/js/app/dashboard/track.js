@@ -28,10 +28,10 @@ function trackEvent(activeModal, type, subtype, value, refresh)
         // Show response
         if (response.success && response.success == true) {
             showNotification(response.event);
-            
+
             if (activeModal)
                 activeModal.modal('hide');
-            
+
             updateLastEvent(); // Update the last feed/pump/diaper stats
 
             if (refresh) {
@@ -52,7 +52,7 @@ function deleteEvent(eventId)
         // Show response
         if (response.success && response.success == true) {
             showNotification(response.event);
-            
+
             updateLastEvent(); // Update the last feed/pump/diaper stats
         } else {
             showNotification(type, true);

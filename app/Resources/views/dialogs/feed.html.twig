@@ -11,7 +11,7 @@
                         <i class="fa fa-arrow-right"></i> Derecha
                     </button>
 
-                    <button type="button" class="btn btn-lg btn-info" data-value="sacaleche">
+                    <button type="button" class="btn btn-lg btn-info" data-value="Sacaleche">
                         <i class="fa fa-tint"></i> De Sacaleches
                     </button>
 
@@ -21,6 +21,7 @@
                 </div>
 
                 <div class="row hide time-options">
+                    {{ spinner(5, 20, 'minutos') }}
 
                     <button type="button" class="btn btn-lg btn-success save">
                         <i class="fa fa-check"></i> Guardar
@@ -28,7 +29,7 @@
                 </div>
 
                 <div class="row hide bottle-options">
-
+                    {{ spinner(10, 30, 'ml') }}
 
                     <button type="button" class="btn btn-lg btn-success save">
                         <i class="fa fa-check"></i> Guardar

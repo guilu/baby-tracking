@@ -174,7 +174,6 @@ class TrackController extends Controller
                 'value' => is_null($last) ? '' : $last->getValue(),
             );
         }
-
         return new JsonResponse($result);
     }
 

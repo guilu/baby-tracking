@@ -14,7 +14,7 @@ $(function() {
     });
 
     $('#lecheModal .feed-types button').fastClick(function () {
-        console.log()
+
         // Reset all button states
         $('#lecheModal .feed-types button')
             .removeClass('btn-primary')
@@ -33,7 +33,7 @@ $(function() {
         }
 
         feedType = $(this).data('value');
-
+        console.log(feedType);
         return false;
     });
 

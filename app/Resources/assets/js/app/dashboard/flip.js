@@ -19,7 +19,7 @@ $('#list-button').fastClick(function() {
         $('.face.back table').html('');
 
         // Fetch list of events
-        $.get('/track/list', function (events) {
+        $.get('track/list', function (events) {
             $.each(events, function (index, event) {
                 var row = $('<tr>');
 

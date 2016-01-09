@@ -39,7 +39,7 @@ class AppExtension extends \Twig_Extension
      *
      * @return string
      */
-    public function spinner($step = 5, $default = 5, $unitName = 'ounces')
+    public function spinner($step = 10, $default = 10, $unitName = 'ml')
     {
         $buttonLeft  = '<button type="button" class="btn btn-success spinner-left">'."\n"."\t".'<i class="fa fa-caret-left"></i>'."\n".'</button>';
         $buttonRight = '<button type="button" class="btn btn-success spinner-right">'."\n"."\t".'<i class="fa fa-caret-right"></i>'."\n".'</button>';

@@ -1,4 +1,5 @@
 function formatEvent(event) {
+    console.log(event);
     var result = {};
 
     // Depending on the input event object the event name may have a different property acessor
@@ -11,10 +12,10 @@ function formatEvent(event) {
     switch (eventTypeName) {
         case 'Leche':
             result.description = eventTypeName + ' (' + event.subtype + ')';
-            result.value = (event.subtype == 'left' || event.subtype == 'right') ? event.value + ' min.' : event.value + ' ml';
+            result.value = (event.subtype == 'izquierda' || event.subtype == 'derecha') ? event.value + ' min.' : event.value + ' ml';
             break;
 
-        case 'Sacaleches':
+        case 'Sacaleche':
             result.description = 'Sacaleche ' + event.subtype;
             result.value = event.value + ' ml';
             break;
