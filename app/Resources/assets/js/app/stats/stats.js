@@ -3,7 +3,7 @@ $(function() {
 
     $(".gridster ul").gridster({
         widget_margins: [10, 10],
-        widget_base_dimensions: [250, 250]
+        widget_base_dimensions: [350, 250]
     });
 
     // Update stats by polling for updates

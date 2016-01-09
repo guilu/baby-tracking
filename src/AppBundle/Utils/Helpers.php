@@ -95,13 +95,19 @@ class Helpers
         if ($interval->d !== 0) {
             $format[] = '%d '.(($interval->d == 1) ? 'dia' : 'dias');
         }
+        if ($interval->h !== 0) {
+            $format[] = '%h '.(($interval->d == 1) ? 'hora' : 'horas');
+        }
+        if ($interval->i !== 0) {
+            $format[] = '%i '.(($interval->i == 1) ? 'minutos' : 'minutos');
+        }
+        if ($interval->s !== 0) {
+            $format[] = '%s '.(($interval->s == 1) ? 'segundos' : 'segundos');
+        }
+
 
         // We use the two biggest parts
-        if (count($format) > 1) {
-            $format = array_shift($format)." y ".array_shift($format);
-        } else {
-            $format = array_pop($format);
-        }
+        $format = array_shift($format)." <br> ".array_shift($format)."<br>";
 
         return $interval->format($format);
     }

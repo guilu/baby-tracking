@@ -8,7 +8,11 @@
 /bin/
 /composer.phar
 /vendor/
+#los assets se copian desde app
 /web/bundles/
+/web/images/
+/web/css/
+/web/js/
 
 /app/data/*
 

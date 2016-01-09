@@ -67,7 +67,7 @@ class StatsController extends Controller
         }
 
         return array(
-            'age' => $this->get('helpers')->formatAge(new \DateTime('2015-12-21 20:59:00')),
+            'age' => $this->get('helpers')->formatAge(new \DateTime('2015-12-25 14:09:00')),
             'sleeping' => ($last['dormir']['type'] == 'start'),
             'attributes' => array(
                 'higiene' => 1.0 - (($now->getTimestamp() - $last['banyo']['timestamp']) / 3600 / 240),
