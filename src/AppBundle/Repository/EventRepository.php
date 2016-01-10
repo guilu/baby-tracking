@@ -145,6 +145,33 @@ class EventRepository extends EntityRepository
     }
 
     /**
+     * Eventos creados a partir de una fecha de un typo especifico
+     * @param \DateTime $fecha
+     * @param EventType $eventType
+     * @param string $subtype
+     *
+     * @return array
+     */
+    public function findCreatedAfterOfTypeAndSubtype(\DateTime $fecha, EventType $eventType,$subtype)
+    {
+        return $this
+            ->createQueryBuilder('e')
+            ->select('e')
+            ->where('e.createdAt > :fecha')
+            ->andWhere('e.eventType = :eventType')
+            ->andWhere('e.subType = :subtype')
+            ->setParameters(array(
+                'fecha' => $fecha,
+                'eventType' => $eventType,
+                'subtype' => $subtype
+            ))
+            ->orderBy('e.createdAt', 'ASC')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
+    /**
      * Eventos de un tipo que también tienen el mismo subtipo
      *
      * @param EventType $eventType

@@ -99,7 +99,9 @@ class StatsController extends Controller
             $yesterday = new \DateTime();
             $yesterday->sub(new \DateInterval('PT24H'));
 
+
             $datetime = \DateTime::createFromFormat('Y-m-d', $day['fecha']);
+
             if ($datetime->format('Y-m-d') == $today->format('Y-m-d')) {
                 $formattedDate = 'Hoy';
             } elseif ($datetime->format('Y-m-d') == $yesterday->format('Y-m-d')) {
@@ -114,22 +116,22 @@ class StatsController extends Controller
             }
 
             $data[$day['subType']][$formattedDate] = $day['cuenta'];
+
         }
 
-
         if ($data == null) {
-            $data['humedo'] = null;
-            $data['sucio'] = null;
-            $data['ambos'] = null;
+            $data['pipi'] = null;
+            $data['caca'] = null;
+            $data['pipi-caca'] = null;
         } else {
-            if (!array_key_exists('humedo', $data)) {
-                $data['humedo'] = array();
+            if (!array_key_exists('pipi', $data)) {
+                $data['pipi'] = array();
             }
-            if (!array_key_exists('sucio', $data)) {
-                $data['sucio'] = array();
+            if (!array_key_exists('caca', $data)) {
+                $data['caca'] = array();
             }
-            if (!array_key_exists('ambos', $data)) {
-                $data['ambos'] = array();
+            if (!array_key_exists('pipi-caca', $data)) {
+                $data['pipi-caca'] = array();
             }
         }
 
@@ -143,7 +145,7 @@ class StatsController extends Controller
                     'pointStrokeColor' => '#FFF',
                     'data'             => $this->constructData(
                         $labels,
-                        array($data['humedo'], $data['sucio'], $data['ambos'])
+                        array($data['pipi'], $data['caca'], $data['pipi-caca'])
                     ),
                 ),
                 array(
@@ -151,21 +153,21 @@ class StatsController extends Controller
                     'strokeColor'      => 'rgba(200,200,200,1.0)',
                     'pointColor'       => 'rgba(200,200,200,1.0)',
                     'pointStrokeColor' => '#FFF',
-                    'data'             => $this->constructData($labels, $data['humedo']),
+                    'data'             => $this->constructData($labels, $data['pipi']),
                 ),
                 array(
                     'fillColor'        => 'rgba(110,110,110,0.0)',
                     'strokeColor'      => 'rgba(110,110,110,1.0)',
                     'pointColor'       => 'rgba(110,110,110,1.0)',
                     'pointStrokeColor' => '#FFF',
-                    'data'             => $this->constructData($labels, $data['sucio']),
+                    'data'             => $this->constructData($labels, $data['caca']),
                 ),
                 array(
                     'fillColor'        => 'rgba(50,50,50,0.0)',
                     'strokeColor'      => 'rgba(50,50,50,1.0)',
                     'pointColor'       => 'rgba(50,50,50,1.0)',
                     'pointStrokeColor' => '#FFF',
-                    'data'             => $this->constructData($labels, $data['ambos']),
+                    'data'             => $this->constructData($labels, $data['pipi-caca']),
                 ),
             ),
         );
@@ -233,7 +235,7 @@ class StatsController extends Controller
             $icons = array(
                 'izquierda' => 'fa fa-arrow-left',
                 'derecha' => 'fa fa-arrow-right',
-                'pumped' => 'fa fa-tint',
+                'sacaleche' => 'fa fa-tint',
                 'formula' => 'fa fa-magic',
             );
 
@@ -263,10 +265,11 @@ class StatsController extends Controller
         $eventRepo = $em->getRepository('AppBundle:Event');
         $eventtypeRepo = $em->getRepository('AppBundle:EventType');
 
-        $feedings = $eventRepo->findCreatedAfterOfType($oneDayAgo, $eventtypeRepo->findOneBy(array('name'=>'Leche')));
+        $feedings = $eventRepo->findCreatedAfterOfTypeAndSubtype($oneDayAgo, $eventtypeRepo->findOneBy(array('name'=>'Leche')), 'formula');
 
         $timeBetween = array();
         $previous = null;
+
         foreach ($feedings as $feeding) {
             /** @var Event $feeding */
             /** @var Event $previous */
@@ -283,7 +286,6 @@ class StatsController extends Controller
         } else {
             $averageDiff = 0;
         }
-
 
         if (!is_null($previous)) {
             $nextFeed = $previous->getCreatedAt()->add(new \DateInterval('PT'.ceil($averageDiff).'S'));

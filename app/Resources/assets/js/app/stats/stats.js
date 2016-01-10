@@ -114,7 +114,7 @@ function updateStats()
 
             if (colorName != null) {
 
-                console.log("voy a poner las barras");
+                //console.log("voy a poner las barras");
                 var $descripcion = $('.box-day-chart .chart-description');
                 var $progress = $('.box-day-chart .progress');
 
